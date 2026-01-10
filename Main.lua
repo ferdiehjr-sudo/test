@@ -1,69 +1,49 @@
--- Load WindUI Library
-local WindUI = loadstring(game:HttpGet('https://raw.githubusercontent.com/Footagesus/WindUI/main/main.lua'))()
+local player = game.Players.LocalPlayer
 
--- Buat Window
-local Window = WindUI:CreateWindow({
-    Title = "My First WindUI", -- Judul window
-    Icon = "rbxassetid://10723424710", -- Icon (opsional)
-    Author = "Your Name", -- Nama pembuat
-    Folder = "WindUIConfig", -- Folder untuk menyimpan config
-    Size = UDim2.fromOffset(500, 400), -- Ukuran window (width, height)
-    KeySystem = false, -- Set true jika mau pakai key system
-    Transparent = false, -- Transparansi background
-    Theme = "Dark", -- Theme: "Dark" atau "Light"
-    SideBarWidth = 170, -- Lebar sidebar
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+--[[
+Name = <string> - The name of the UI.
+HidePremium = <bool> - Whether or not the user details shows Premium status or not.
+SaveConfig = <bool> - Toggles the config saving in the UI.
+ConfigFolder = <string> - The name of the folder where the configs are saved.
+IntroEnabled = <bool> - Whether or not to show the intro animation.
+IntroText = <string> - Text to show in the intro animation.
+IntroIcon = <string> - URL to the image you want to use in the intro animation.
+Icon = <string> - URL to the image you want displayed on the window.
+CloseCallback = <function> - Function to execute when the window is closed.
+]]
+
+local Tab = Window:MakeTab({
+	Name = "Tab 1",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
 })
 
--- Buat Tab
-local MainTab = Window:Tab({
-    Title = "Main",
-    Icon = "home"
+--[[
+Name = <string> - The name of the tab.
+Icon = <string> - The icon of the tab.
+PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
+]]
+
+local Section = Tab:AddSection({
+	Name = "Section"
 })
 
--- Buat Section di dalam Tab
-local Section = MainTab:Section({
-    Title = "Main Section"
+--[[
+Name = <string> - The name of the section.
+]]
+
+Tab:AddButton({
+	Name = "Button!",
+	Callback = function()
+      		print("button pressed")
+  	end    
 })
 
--- Tambahkan Button
-Section:Button({
-    Title = "Click Me!",
-    Description = "Ini adalah button pertama",
-    Callback = function()
-        print("Button diklik!")
-    end
-})
-
--- Tambahkan Toggle
-Section:Toggle({
-    Title = "Toggle Example",
-    Description = "Toggle ini on/off",
-    Default = false,
-    Callback = function(value)
-        print("Toggle sekarang:", value)
-    end
-})
-
--- Tambahkan Slider
-Section:Slider({
-    Title = "Slider Example",
-    Description = "Geser untuk ubah nilai",
-    Min = 0,
-    Max = 100,
-    Default = 50,
-    Callback = function(value)
-        print("Slider value:", value)
-    end
-})
-
--- Tambahkan Input/Textbox
-Section:Input({
-    Title = "Input Text",
-    Description = "Ketik sesuatu",
-    Placeholder = "Tulis disini...",
-    Callback = function(text)
-        print("Text yang diinput:", text)
-    end
-})
-
-print("WindUI loaded successfully!")
+--[[
+Name = <string> - The name of the button.
+Callback = <function> - The function of the button.
+]]
