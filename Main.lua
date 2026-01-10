@@ -2,7 +2,12 @@ local player = game.Players.LocalPlayer
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({
+	Name = "Just Testing Ui Fuck", 
+	HidePremium = false, 
+	SaveConfig = true, 
+	ConfigFolder = "OrionTest"
+})
 
 --[[
 Name = <string> - The name of the UI.
@@ -29,11 +34,25 @@ PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
 ]]
 
 local Section = Tab:AddSection({
-	Name = "Section"
+	Name = "LocalPlayer"
 })
 
 --[[
 Name = <string> - The name of the section.
+]]
+
+OrionLib:MakeNotification({
+	Name = "Welcome Testing",
+	Content = "Notification content... what will it say??",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+--[[
+Title = <string> - The title of the notification.
+Content = <string> - The content of the notification.
+Image = <string> - The icon of the notification.
+Time = <number> - The duration of the notfication.
 ]]
 
 Tab:AddButton({
