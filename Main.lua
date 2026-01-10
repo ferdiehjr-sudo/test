@@ -1,68 +1,50 @@
 local player = game.Players.LocalPlayer
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
+local WindUI
 
-local Window = OrionLib:MakeWindow({
-	Name = "Just Testing Ui Fuck", 
-	HidePremium = false, 
-	SaveConfig = true, 
-	ConfigFolder = "OrionTest"
+do
+    local ok, result = pcall(function()
+        return require("./src/Init")
+    end)
+    
+    if ok then
+        WindUI = result
+    else 
+        if cloneref(game:GetService("RunService"):IsStudio()) then
+            WindUI = require(cloneref(ReplicatedStorage:WaitForChild("WindUI"):WaitForChild("Init")))
+        else
+            WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
+        end
+    end
+end
+
+local Window = WindUI:CreateWindow({
+    Title = ".ftgs hub  |  WindUI Example",
+    --Author = "by .ftgs • Footagesus",
+    Folder = "ftgshub",
+    Icon = "solar:folder-2-bold-duotone",
+    --IconSize = 22*2,
+    NewElements = true,
+    --Size = UDim2.fromOffset(700,700),
+    
+    HideSearchBar = false,
+    
+    OpenButton = {
+        Title = "Open .ftgs hub UI", -- can be changed
+        CornerRadius = UDim.new(1,0), -- fully rounded
+        StrokeThickness = 3, -- removing outline
+        Enabled = true, -- enable or disable openbutton
+        Draggable = true,
+        OnlyMobile = false,
+        Scale = 0.5,
+        
+        Color = ColorSequence.new( -- gradient
+            Color3.fromHex("#30FF6A"), 
+            Color3.fromHex("#e7ff2f")
+        )
+    },
+    Topbar = {
+        Height = 44,
+        ButtonsType = "Mac", -- Default or Mac
+    },
 })
-
---[[
-Name = <string> - The name of the UI.
-HidePremium = <bool> - Whether or not the user details shows Premium status or not.
-SaveConfig = <bool> - Toggles the config saving in the UI.
-ConfigFolder = <string> - The name of the folder where the configs are saved.
-IntroEnabled = <bool> - Whether or not to show the intro animation.
-IntroText = <string> - Text to show in the intro animation.
-IntroIcon = <string> - URL to the image you want to use in the intro animation.
-Icon = <string> - URL to the image you want displayed on the window.
-CloseCallback = <function> - Function to execute when the window is closed.
-]]
-
-local Tab = Window:MakeTab({
-	Name = "Tab 1",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
---[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
-]]
-
-local Section = Tab:AddSection({
-	Name = "LocalPlayer"
-})
-
---[[
-Name = <string> - The name of the section.
-]]
-
-OrionLib:MakeNotification({
-	Name = "Welcome Testing",
-	Content = "Notification content... what will it say??",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-})
-
---[[
-Title = <string> - The title of the notification.
-Content = <string> - The content of the notification.
-Image = <string> - The icon of the notification.
-Time = <number> - The duration of the notfication.
-]]
-
-Tab:AddButton({
-	Name = "Button!",
-	Callback = function()
-      		print("button pressed")
-  	end    
-})
-
---[[
-Name = <string> - The name of the button.
-Callback = <function> - The function of the button.
-]]
